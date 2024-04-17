@@ -13,22 +13,19 @@ Cadastrar e fornecer coisas que não estão resolvidas nos sitemas USP.
 - Graduação
   - Cursos e habilitações por Departamentos de ensino
   
-    Motivo: Existem situações onde o aluno de graduação é associado ao um departamento de ensino.
+    Motivo: Existem situações onde o aluno de graduação é associado a um departamento de ensino.
 
     Ex.: Somente alunos de graduação do departamento de ensino de relações públicas podem retirar equipamentos.
-
 
 - Pós-Graduação
   - Programas
   
     Motivo: O replicado não traz a sigla e outras informações de rotatividade utilizadas pelo programa de pós-graduação.
 
-
 - Estrutura
   - Espaços
   
     Motivo: Apesar de ter no replicado, muitas vezes ou não tem a sala ou está com o nome errado.
-
 
 - Gerais
   - Feriados
