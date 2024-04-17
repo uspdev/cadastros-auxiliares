@@ -10,6 +10,11 @@ Cadastrar e fornecer coisas que não estão resolvidas nos sitemas USP.
 
 ## Cadastros
 
+- Estrutura
+  - Espaços
+  
+    Motivo: Apesar de ter no replicado, muitas vezes ou não tem a sala ou está com o nome errado.
+
 - Graduação
   - Cursos e habilitações por Departamentos de ensino
   
@@ -21,11 +26,6 @@ Cadastrar e fornecer coisas que não estão resolvidas nos sitemas USP.
   - Programas
   
     Motivo: O replicado não traz a sigla e outras informações de rotatividade utilizadas pelo programa de pós-graduação.
-
-- Estrutura
-  - Espaços
-  
-    Motivo: Apesar de ter no replicado, muitas vezes ou não tem a sala ou está com o nome errado.
 
 - Gerais
   - Feriados
