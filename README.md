@@ -18,16 +18,16 @@ Cadastrar e fornecer coisas que não estão resolvidas nos sitemas USP.
     Ex.: Somente alunos de graduação do departamento de ensino de relações públicas podem retirar equipamentos.
 
 
-- Estrutura
-  - Espaços
-  
-    Motivo: Apesar de ter no replicado, muitas vezes ou não tem a sala ou está com o nome errado.
-
-
 - Pós-Graduação
   - Programas
   
     Motivo: O replicado não traz a sigla e outras informações de rotatividade utilizadas pelo programa de pós-graduação.
+
+
+- Estrutura
+  - Espaços
+  
+    Motivo: Apesar de ter no replicado, muitas vezes ou não tem a sala ou está com o nome errado.
 
 
 - Gerais
