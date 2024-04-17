@@ -21,7 +21,7 @@ Cadastrar e fornecer coisas que não estão resolvidas nos sitemas USP.
 - Estrutura
   - Espaços
   
-    Motivo: Apesar de ter no replicado, muitas vezes ou não tem alguma sala ou a sala está com o nome errado.
+    Motivo: Apesar de ter no replicado, muitas vezes ou não tem a sala ou está com o nome errado.
 
 
 - Pós-Graduação
