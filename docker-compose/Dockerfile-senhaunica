@@ -1,0 +1,31 @@
+FROM php:7.4-fpm
+
+RUN apt-get update
+RUN apt-get -yqq install curl \
+    git \ 
+    zip \
+    unzip \
+    nodejs \
+    npm \
+    libicu-dev \
+    freetds-bin \
+    freetds-dev
+
+RUN cp /usr/lib/x86_64-linux-gnu/libsybdb.so.5 /usr/lib/libsybdb.so
+
+RUN docker-php-ext-install pdo_dblib pdo_mysql
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+WORKDIR /var/www/app
+
+RUN git clone https://github.com/uspdev/senhaunica-faker.git /var/www/app
+
+RUN composer install --no-interaction
+
+RUN cp .env.example .env
+
+RUN php artisan key:generate
+
+CMD ["php","artisan","serve","--host=0.0.0.0:3141"]
