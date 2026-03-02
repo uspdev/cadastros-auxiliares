@@ -105,9 +105,16 @@ Exemplo de resposta para consumo por app:
 
 ### Exemplo de endpoint para consumo
 
-Endpoint sugerido:
+Observação de operação:
+
+- O cadastro (criação, edição e exclusão) de mensagens é feito somente pela interface web em `/mensagens`.
+- A API de mensagens é somente leitura e disponibiliza apenas endpoints `GET`.
+
+Endpoints:
 
 - `GET /api/mensagens`
+- `GET /api/mensagens?limite=10`
+- `GET /api/mensagens?sistema=empresta&publico=Docente&ativos=true&limite=5`
 
 Parâmetros de filtro (query string):
 

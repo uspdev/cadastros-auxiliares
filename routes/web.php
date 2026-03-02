@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MensagemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('mensagens', MensagemController::class)
+    ->except(['show'])
+    ->middleware(['auth', 'can:admin']);
 
 // Permite usar Gate::check('user')na view 404
 Route::fallback(function(){
