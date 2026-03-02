@@ -1,0 +1,6 @@
+FROM uspdev/asedocker
+
+## issue: subir um dump
+
+WORKDIR /var/www/
+#RUN source /opt/sybase/sap/SYBASE.sh && isql -Usa -PSybase123456789 -SSYBASE -i /var/www/docker-compose/replicado.sql

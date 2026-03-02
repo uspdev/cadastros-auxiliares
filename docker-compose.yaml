@@ -1,0 +1,66 @@
+version: '3'
+
+networks:
+  net-uspdev-app:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.10.0.0/24
+
+services:
+  mariadbserver:
+    image: mariadb:11.1
+    container_name: mariadbserver
+    environment:
+      MYSQL_ROOT_PASSWORD: 'app'
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
+      MYSQL_PASSWORD: 'app'
+    ports:
+      - 43306:3306
+    networks:
+      net-uspdev-app:
+        ipv4_address: 10.10.0.10
+    restart: always
+
+  senhaunica:
+    build:
+      context: .
+      dockerfile: ./docker-compose/Dockerfile-senhaunica
+    container_name: senhaunica
+    ports:
+      - 3141:3141
+    networks:
+      net-uspdev-app:
+        ipv4_address: 10.10.0.11
+    restart: always
+
+  app:
+    build:
+      context: .
+      dockerfile: ./docker-compose/Dockerfile-php
+    depends_on:
+      - mariadbserver
+    env_file:
+      - .env.docker
+    container_name: app
+    ports:
+      - 8000:8000
+    networks:
+      net-uspdev-app:
+        ipv4_address: 10.10.0.12
+    restart: always
+
+  replicado:
+    build:
+      context: .
+      dockerfile: ./docker-compose/Dockerfile-replicado
+    env_file:
+      - .env.docker
+    container_name: replicado
+    ports:
+      - 5000:5000
+    networks:
+      net-uspdev-app:
+        ipv4_address: 10.10.0.13
+    restart: always
