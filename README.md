@@ -58,15 +58,18 @@ Campos recomendados:
 - `fim_exibicao`: data/hora final de vigência.
 - `prioridade`: ordem de destaque quando houver múltiplas mensagens.
 - `sistema`: sistema-alvo da mensagem (ou `geral` para todos).
-- `publico`: segmentação opcional (ex.: servidor, docente, discente, administrador).
+- `publico`: controle de visibilidade (binário):
+  - `false` (`Não`): exibe para todos (inclusive não logados);
+  - `true` (`Sim`): exibe somente para usuários logados.
 - `created_at` e `updated_at`: auditoria básica de criação e atualização.
 
-Regras mínimas sugeridas:
+Regras implementadas:
 
 - exibir somente mensagens com `ativo = true`;
 - respeitar a janela entre `inicio_exibicao` e `fim_exibicao`;
 - ordenar por `prioridade` e, em seguida, por data de atualização;
-- permitir que cada sistema aplique filtros próprios por `sistema` e `publico`.
+- permitir filtros por `sistema`, `publico`, `ativos` e `limite` via API;
+- no cadastro web, a coluna `público` usa apenas `Sim/Não`.
 
 Exemplo de payload (registro de mensagem):
 
@@ -81,7 +84,7 @@ Exemplo de payload (registro de mensagem):
   "fim_exibicao": "2026-03-05T23:30:00-03:00",
   "prioridade": 10,
   "sistema": "empresta",
-  "publico": ["Servidor", "Docente"],
+  "publico": true,
   "created_at": "2026-03-02T10:15:00-03:00",
   "updated_at": "2026-03-02T10:15:00-03:00"
 }
@@ -108,25 +111,26 @@ Exemplo de resposta para consumo por app:
 Observação de operação:
 
 - O cadastro (criação, edição e exclusão) de mensagens é feito somente pela interface web em `/mensagens`.
+- O CRUD web de mensagens é restrito a usuários com perfil/permissão `admin`.
 - A API de mensagens é somente leitura e disponibiliza apenas endpoints `GET`.
 
 Endpoints:
 
 - `GET /api/mensagens`
 - `GET /api/mensagens?limite=10`
-- `GET /api/mensagens?sistema=empresta&publico=Docente&ativos=true&limite=5`
+- `GET /api/mensagens?sistema=empresta&publico=true&ativos=true&limite=5`
 
 Parâmetros de filtro (query string):
 
 - `sistema`: restringe mensagens por sistema (ex.: `empresta`).
-- `publico`: filtra por público-alvo (ex.: `Docente`, `Servidor`).
+- `publico`: filtra por público (aceita `true/false`, `1/0`, `sim/nao`, `usuario/todos`).
 - `ativos`: quando `true`, retorna apenas mensagens ativas na data/hora atual.
 - `limite`: quantidade máxima de mensagens retornadas.
 
 Exemplo de chamada:
 
 ```http
-GET /api/mensagens?sistema=empresta&publico=Docente&ativos=true&limite=5
+GET /api/mensagens?sistema=empresta&publico=true&ativos=true&limite=5
 ```
 
 Comportamento esperado:
@@ -134,6 +138,38 @@ Comportamento esperado:
 - aplicar os filtros informados;
 - considerar a vigência (`inicio_exibicao` e `fim_exibicao`) quando `ativos=true`;
 - ordenar por `prioridade` (maior para menor) e depois por `updated_at` (mais recente primeiro).
+
+### Visualização no laravel-usp-theme (opcional)
+
+As mensagens podem ser exibidas no topo de **todas as páginas** da aplicação via `laravel-usp-theme`.
+
+Configuração por `.env`:
+
+- `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO=false` (default).
+- Quando `true`, usa `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL` para buscar mensagens.
+
+Exemplo para testes usando o próprio app:
+
+```dotenv
+CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO=true
+CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL=
+CADASTROS_AUXILIARES_MENSAGENS_LIMITE=5
+CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT=5
+```
+
+Significado:
+
+- `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO`: habilita/desabilita a integração.
+- `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`: endpoint `GET` do cadastros-auxiliares (ex.: `https://seu-app/api/mensagens`).
+- `CADASTROS_AUXILIARES_MENSAGENS_LIMITE`: quantidade máxima de mensagens consumidas.
+- `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT`: tempo em segundos para cada mensagem desaparecer automaticamente.
+
+Comportamento de exibição no tema:
+
+- `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT` define por quantos segundos cada mensagem fica visível.
+- Se `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT` estiver vazio, as mensagens não são exibidas no tema.
+- Cada mensagem possui botão de fechar manual (`×`).
+- Se o endpoint estiver indisponível, o comportamento é **silencioso** (sem erro na interface).
 
 ## Pontos a evoluir
 

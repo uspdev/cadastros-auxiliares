@@ -123,16 +123,35 @@
 </div>
 
 <div class="mb-3">
-  <label for="publico" class="form-label">Público (separado por vírgula)</label>
-  <input
-    type="text"
-    id="publico"
-    name="publico_texto"
-    class="form-control"
-    value="{{ old('publico_texto', isset($mensagem->publico) && is_array($mensagem->publico) ? implode(', ', $mensagem->publico) : '') }}"
-    placeholder="Servidor, Docente"
-  >
-  <div class="form-text">Ex.: Servidor, Docente, Discente, Administrador</div>
+  <label for="publico_opcao" class="form-label">Público (somente usuários logados)</label>
+  @php
+    $publicoAtual = old('publico_opcao');
+
+    if ($publicoAtual === null) {
+      if (is_bool($mensagem->publico ?? null)) {
+        $publicoAtual = ($mensagem->publico ?? false) ? 'sim' : 'nao';
+      } elseif (is_array($mensagem->publico ?? null)) {
+        $publicoLista = collect($mensagem->publico)
+          ->map(fn($item) => mb_strtolower(trim((string) $item)))
+          ->all();
+
+        $publicoAtual = in_array('usuário', $publicoLista, true) || in_array('usuario', $publicoLista, true)
+          ? 'sim'
+          : 'nao';
+      } else {
+        $publicoAtual = 'nao';
+      }
+    }
+  @endphp
+
+  <select id="publico_opcao" name="publico_opcao" class="form-select @error('publico_opcao') is-invalid @enderror" required>
+    <option value="nao" @selected($publicoAtual === 'nao')>Não</option>
+    <option value="sim" @selected($publicoAtual === 'sim')>Sim</option>
+  </select>
+  @error('publico_opcao')
+    <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+  <div class="form-text">Sim: visível apenas para usuários logados. Não: visível para todos.</div>
 </div>
 
 <button type="submit" class="btn btn-primary">Salvar</button>

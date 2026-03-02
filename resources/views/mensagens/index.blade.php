@@ -20,6 +20,7 @@
                 <th>Título</th>
                 <th>Tipo</th>
                 <th>Sistema</th>
+                <th>Público</th>
                 <th>Prioridade</th>
                 <th>Ativo</th>
                 <th>Atualizado</th>
@@ -33,6 +34,7 @@
                   <td>{{ $mensagem->titulo }}</td>
                   <td>{{ $mensagem->tipo }}</td>
                   <td>{{ $mensagem->sistema }}</td>
+                  <td>{{ $mensagem->publico ? 'Sim' : 'Não' }}</td>
                   <td>{{ $mensagem->prioridade }}</td>
                   <td>{{ $mensagem->ativo ? 'Sim' : 'Não' }}</td>
                   <td>{{ $mensagem->updated_at?->format('d/m/Y H:i') }}</td>

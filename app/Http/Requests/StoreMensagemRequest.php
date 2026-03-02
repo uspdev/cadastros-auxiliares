@@ -22,24 +22,17 @@ class StoreMensagemRequest extends FormRequest
             'fim_exibicao' => ['nullable', 'date', 'after_or_equal:inicio_exibicao'],
             'prioridade' => ['nullable', 'integer', 'min:0'],
             'sistema' => ['required', 'string', 'max:255'],
-            'publico_texto' => ['nullable', 'string'],
-            'publico' => ['nullable', 'array'],
-            'publico.*' => ['string', 'max:100'],
+            'publico_opcao' => ['required', 'in:sim,nao'],
+            'publico' => ['required', 'boolean'],
         ];
     }
 
     protected function prepareForValidation(): void
     {
-        if ($this->has('publico_texto')) {
-            $publico = collect(explode(',', (string) $this->input('publico_texto')))
-                ->map(fn ($item) => trim($item))
-                ->filter()
-                ->values()
-                ->all();
+        $publicoOpcao = $this->input('publico_opcao', 'nao');
 
-            $this->merge([
-                'publico' => empty($publico) ? null : $publico,
-            ]);
-        }
+        $this->merge([
+            'publico' => $publicoOpcao === 'sim',
+        ]);
     }
 }

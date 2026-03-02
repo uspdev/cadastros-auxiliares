@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::resource('mensagens', MensagemController::class)
     ->except(['show'])
+    ->parameters(['mensagens' => 'mensagem'])
     ->middleware(['auth', 'can:admin']);
 
 // Permite usar Gate::check('user')na view 404

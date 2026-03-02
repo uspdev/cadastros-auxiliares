@@ -27,6 +27,6 @@ class Mensagem extends Model
         'ativo' => 'boolean',
         'inicio_exibicao' => 'datetime',
         'fim_exibicao' => 'datetime',
-        'publico' => 'array',
+        'publico' => 'boolean',
     ];
 }

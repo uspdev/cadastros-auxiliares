@@ -20,17 +20,13 @@ class ApiMensagemController extends Controller
         }
 
         if ($request->filled('publico')) {
-            $publicos = collect(explode(',', $request->string('publico')->toString()))
-                ->map(fn ($item) => trim($item))
-                ->filter()
-                ->values();
+            $publico = mb_strtolower(trim($request->string('publico')->toString()));
+            $publico = str_replace('á', 'a', $publico);
 
-            if ($publicos->isNotEmpty()) {
-                $query->where(function ($q) use ($publicos) {
-                    foreach ($publicos as $publico) {
-                        $q->orWhereJsonContains('publico', $publico);
-                    }
-                });
+            if (in_array($publico, ['1', 'true', 'sim', 'usuario', 'usuário'], true)) {
+                $query->where('publico', true);
+            } elseif (in_array($publico, ['0', 'false', 'nao', 'não', 'todos'], true)) {
+                $query->where('publico', false);
             }
         }
 

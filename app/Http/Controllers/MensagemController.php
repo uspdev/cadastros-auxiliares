@@ -31,7 +31,7 @@ class MensagemController extends Controller
     {
         $data = $request->validated();
         $data['ativo'] = $request->boolean('ativo');
-        unset($data['publico_texto']);
+        unset($data['publico_opcao']);
 
         Mensagem::create($data);
 
@@ -49,7 +49,7 @@ class MensagemController extends Controller
     {
         $data = $request->validated();
         $data['ativo'] = $request->boolean('ativo');
-        unset($data['publico_texto']);
+        unset($data['publico_opcao']);
 
         $mensagem->update($data);
 
