@@ -20,7 +20,7 @@ class MensagemFactory extends Factory
             'fim_exibicao' => now()->addHour(),
             'prioridade' => $this->faker->numberBetween(0, 10),
             'sistema' => 'geral',
-            'publico' => ['Servidor'],
+            'publico' => true,
         ];
     }
 }

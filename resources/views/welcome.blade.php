@@ -12,7 +12,8 @@
         <ul>
             <li>sincronizar informações vindas do replicado;</li>
             <li>ajustar ou complementar dados manualmente quando necessário;</li>
-            <li>disponibilizar esses dados por endpoints JSON para consumo por outras aplicações.</li>
+            <li>disponibilizar esses dados por endpoints JSON para consumo por outras aplicações;</li>
+            <li>exibir mensagens nos sistemas locais.</li>
         </ul>
     </div>
   </div>

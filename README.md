@@ -96,6 +96,7 @@ Observação de operação:
 - O cadastro (criação, edição e exclusão) de mensagens é feito somente pela interface web em `/mensagens`.
 - O CRUD web de mensagens é restrito a usuários com perfil/permissão `admin`.
 - A API de mensagens é somente leitura e disponibiliza apenas endpoints `GET`.
+- Opcionalmente, você pode proteger o endpoint com uma senha compartilhada (`CADASTROS_AUXILIARES_PASSWORD`).
 
 Endpoints:
 
@@ -118,6 +119,13 @@ Exemplo de chamada:
 GET /api/mensagens?sistema=cadastros-auxiliares&publico=true&ativos=true&limite=5
 ```
 
+Exemplo com senha:
+
+```http
+GET /api/mensagens?sistema=cadastros-auxiliares&publico=true&ativos=true&limite=5
+X-Cadastros-Auxiliares-Password: <sua-senha>
+```
+
 Comportamento esperado:
 
 - aplicar os filtros informados;
@@ -137,7 +145,8 @@ Exemplo para testes usando o próprio app:
 
 ```dotenv
 CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO=true
-CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL=
+CADASTROS_AUXILIARES_PASSWORD=password
+CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL=https://seu-app/api/mensagens
 CADASTROS_AUXILIARES_SISTEMA_NAME=cadastros-auxiliares
 CADASTROS_AUXILIARES_MENSAGENS_LIMITE=5
 CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT=5
@@ -148,6 +157,8 @@ Significado:
 
 - `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO`: habilita/desabilita a integração.
 - quando a variável não existir, estiver vazia ou for `false`, a integração fica desabilitada.
+- `CADASTROS_AUXILIARES_PASSWORD`: senha opcional para proteger `/api/mensagens` em chamadas externas.
+- requisições same-origin da interface continuam funcionando sem precisar expor senha na URL.
 - `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`: endpoint `GET` do cadastros-auxiliares (ex.: `https://seu-app/api/mensagens`).
 - `CADASTROS_AUXILIARES_SISTEMA_NAME`: nome do sistema consumidor para aplicar o filtro por sistema (ex.: `cadastros-auxiliares`, `ponto`).
 - `CADASTROS_AUXILIARES_MENSAGENS_LIMITE`: quantidade máxima de mensagens consumidas.

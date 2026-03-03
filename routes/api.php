@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/mensagens', [ApiMensagemController::class, 'index']);
+Route::middleware(['web', 'api.password'])->get('/mensagens', [ApiMensagemController::class, 'index']);
