@@ -30,8 +30,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'cadastros_auxiliares' => [
-        'password' => env('CADASTROS_AUXILIARES_PASSWORD', ''),
-    ],
-
 ];

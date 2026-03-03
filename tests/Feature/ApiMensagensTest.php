@@ -15,7 +15,7 @@ class ApiMensagensTest extends TestCase
     {
         parent::setUp();
 
-        config()->set('services.cadastros_auxiliares.password', '');
+        config()->set('cadastros-auxiliares.password', '');
     }
 
     public function test_lista_mensagens_ativas_filtradas_e_ordenadas(): void
@@ -72,7 +72,7 @@ class ApiMensagensTest extends TestCase
 
     public function test_bloqueia_sem_password_quando_configurada(): void
     {
-        config()->set('services.cadastros_auxiliares.password', 'segredo-123');
+        config()->set('cadastros-auxiliares.password', 'segredo-123');
 
         $response = $this->getJson('/api/mensagens?ativos=true');
 
@@ -81,7 +81,7 @@ class ApiMensagensTest extends TestCase
 
     public function test_permite_com_password_na_query(): void
     {
-        config()->set('services.cadastros_auxiliares.password', 'segredo-123');
+        config()->set('cadastros-auxiliares.password', 'segredo-123');
         Mensagem::factory()->create(['ativo' => true, 'publico' => true]);
 
         $response = $this->getJson('/api/mensagens?ativos=true&password=segredo-123');
@@ -92,7 +92,7 @@ class ApiMensagensTest extends TestCase
 
     public function test_permite_usuario_web_autenticado_sem_password(): void
     {
-        config()->set('services.cadastros_auxiliares.password', 'segredo-123');
+        config()->set('cadastros-auxiliares.password', 'segredo-123');
         Mensagem::factory()->create(['ativo' => true, 'publico' => true]);
         $this->actingAs(User::factory()->create());
 
@@ -106,7 +106,7 @@ class ApiMensagensTest extends TestCase
 
     public function test_permite_requisicao_interna_do_tema_sem_password(): void
     {
-        config()->set('services.cadastros_auxiliares.password', 'segredo-123');
+        config()->set('cadastros-auxiliares.password', 'segredo-123');
         Mensagem::factory()->create(['ativo' => true, 'publico' => true]);
 
         $response = $this->withHeaders([
@@ -119,7 +119,7 @@ class ApiMensagensTest extends TestCase
 
     public function test_permite_requisicao_same_origin_sem_password(): void
     {
-        config()->set('services.cadastros_auxiliares.password', 'segredo-123');
+        config()->set('cadastros-auxiliares.password', 'segredo-123');
         Mensagem::factory()->create(['ativo' => true, 'publico' => true]);
 
         $response = $this->withHeaders([

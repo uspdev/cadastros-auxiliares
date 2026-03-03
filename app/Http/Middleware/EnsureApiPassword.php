@@ -17,7 +17,7 @@ class EnsureApiPassword
             return $next($request);
         }
 
-        $configuredPassword = (string) config('services.cadastros_auxiliares.password', '');
+        $configuredPassword = (string) config('cadastros-auxiliares.password', '');
 
         if ($configuredPassword === '') {
             return $next($request);

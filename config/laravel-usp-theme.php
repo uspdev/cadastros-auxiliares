@@ -7,6 +7,11 @@ $menu = [
         'can' => 'admin',
     ],
     [
+        'text' => '<i class="fas fa-question-circle"></i> Ajuda',
+        'url' => 'https://github.com/uspdev/cadastros-auxiliares?tab=readme-ov-file#cadastros-auxiliares',
+        'target' => '_blank',
+    ],
+    [
         # este item de menu será substituido no momento da renderização
         'key' => 'menu_dinamico',
     ],
@@ -59,12 +64,12 @@ return [
     'mensagensFlash' => true,
 
     # integração opcional com endpoint de mensagens do cadastros-auxiliares
-    'cadastros_auxiliares_mensagens_integracao' => env('CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO', false),
-    'cadastros_auxiliares_mensagens_endpoint_url' => env('CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL', ''),
-    'cadastros_auxiliares_mensagens_sistema' => env('CADASTROS_AUXILIARES_SISTEMA_NAME', ''),
-    'cadastros_auxiliares_mensagens_limite' => (int) env('CADASTROS_AUXILIARES_MENSAGENS_LIMITE', 5),
-    'cadastros_auxiliares_mensagens_timeout' => env('CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT', 5),
-    'cadastros_auxiliares_mensagens_refresh' => (int) env('CADASTROS_AUXILIARES_MENSAGENS_REFRESH', 30),
+    'cadastros_auxiliares_mensagens_integracao' => config('cadastros-auxiliares.mensagens.integracao', false),
+    'cadastros_auxiliares_mensagens_endpoint_url' => config('cadastros-auxiliares.mensagens.endpoint_url', ''),
+    'cadastros_auxiliares_mensagens_sistema' => config('cadastros-auxiliares.mensagens.sistema', ''),
+    'cadastros_auxiliares_mensagens_limite' => (int) config('cadastros-auxiliares.mensagens.limite', 5),
+    'cadastros_auxiliares_mensagens_timeout' => config('cadastros-auxiliares.mensagens.timeout', 5),
+    'cadastros_auxiliares_mensagens_refresh' => (int) config('cadastros-auxiliares.mensagens.refresh', 30),
 
     # container ou container-fluid
     'container' => 'container-fluid',
