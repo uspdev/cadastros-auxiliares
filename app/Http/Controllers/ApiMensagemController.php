@@ -12,10 +12,15 @@ class ApiMensagemController extends Controller
         $query = Mensagem::query();
 
         if ($request->filled('sistema')) {
-            $sistema = $request->string('sistema')->toString();
+            $sistema = mb_strtolower(trim($request->string('sistema')->toString()));
+            $sistemaSemEspacos = str_replace(' ', '', $sistema);
+
             $query->where(function ($q) use ($sistema) {
-                $q->where('sistema', $sistema)
-                    ->orWhere('sistema', 'geral');
+                $sistemaSemEspacos = str_replace(' ', '', $sistema);
+
+                $q->whereRaw('LOWER(TRIM(sistema)) = ?', [$sistema])
+                    ->orWhereRaw('LOWER(TRIM(sistema)) = ?', ['geral'])
+                    ->orWhereRaw('FIND_IN_SET(?, REPLACE(LOWER(sistema), " ", "")) > 0', [$sistemaSemEspacos]);
             });
         }
 
@@ -30,16 +35,19 @@ class ApiMensagemController extends Controller
             }
         }
 
-        if ($request->boolean('ativos')) {
-            $now = now();
+        $filtrarAtivos = $request->has('ativos')
+            ? $request->boolean('ativos')
+            : true;
+
+        if ($filtrarAtivos) {
             $query->where('ativo', true)
-                ->where(function ($q) use ($now) {
+                ->where(function ($q) {
                     $q->whereNull('inicio_exibicao')
-                        ->orWhere('inicio_exibicao', '<=', $now);
+                        ->orWhereRaw('inicio_exibicao <= NOW()');
                 })
-                ->where(function ($q) use ($now) {
+                ->where(function ($q) {
                     $q->whereNull('fim_exibicao')
-                        ->orWhere('fim_exibicao', '>=', $now);
+                        ->orWhereRaw('fim_exibicao >= NOW()');
                 });
         }
 
@@ -53,6 +61,7 @@ class ApiMensagemController extends Controller
                 'titulo',
                 'conteudo',
                 'tipo',
+                'ativo',
                 'prioridade',
                 'inicio_exibicao',
                 'fim_exibicao',

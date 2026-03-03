@@ -67,12 +67,14 @@
       name="sistema"
       class="form-control @error('sistema') is-invalid @enderror"
       value="{{ old('sistema', $mensagem->sistema ?? 'geral') }}"
+      placeholder="geral, cadastros-auxiliares, ponto, pessoas, chamados"
       required
       maxlength="255"
     >
     @error('sistema')
       <div class="invalid-feedback">{{ $message }}</div>
     @enderror
+    <div class="form-text">Use <strong>geral</strong> para exibir em todos os sistemas (valor padrão). Exemplos: cadastros-auxiliares, ponto, pessoas, chamados.</div>
   </div>
 
   <div class="col-md-2 mb-3 d-flex align-items-end">
@@ -123,7 +125,7 @@
 </div>
 
 <div class="mb-3">
-  <label for="publico_opcao" class="form-label">Público (somente usuários logados)</label>
+  <label for="publico_opcao" class="form-label">Público (visibilidade da mensagem)</label>
   @php
     $publicoAtual = old('publico_opcao');
 
@@ -151,7 +153,7 @@
   @error('publico_opcao')
     <div class="invalid-feedback">{{ $message }}</div>
   @enderror
-  <div class="form-text">Sim: visível apenas para usuários logados. Não: visível para todos.</div>
+  <div class="form-text">Sim: visível para todos (inclusive não logados). Não: visível somente para usuários logados.</div>
 </div>
 
 <button type="submit" class="btn btn-primary">Salvar</button>

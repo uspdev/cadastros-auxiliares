@@ -58,6 +58,13 @@ return [
     # mensagens flash - https://uspdev.github.io/laravel#31-mensagens-flash
     'mensagensFlash' => true,
 
+    # integração opcional com endpoint de mensagens do cadastros-auxiliares
+    'cadastros_auxiliares_mensagens_integracao' => env('CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO', false),
+    'cadastros_auxiliares_mensagens_endpoint_url' => env('CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL', ''),
+    'cadastros_auxiliares_mensagens_limite' => (int) env('CADASTROS_AUXILIARES_MENSAGENS_LIMITE', 5),
+    'cadastros_auxiliares_mensagens_timeout' => env('CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT', 5),
+    'cadastros_auxiliares_mensagens_refresh' => (int) env('CADASTROS_AUXILIARES_MENSAGENS_REFRESH', 30),
+
     # container ou container-fluid
     'container' => 'container-fluid',
 ];

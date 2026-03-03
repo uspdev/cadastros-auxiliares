@@ -23,6 +23,8 @@
                 <th>Público</th>
                 <th>Prioridade</th>
                 <th>Ativo</th>
+                <th>Início</th>
+                <th>Fim</th>
                 <th>Atualizado</th>
                 <th class="text-end">Ações</th>
               </tr>
@@ -32,11 +34,23 @@
                 <tr>
                   <td>{{ $mensagem->id }}</td>
                   <td>{{ $mensagem->titulo }}</td>
-                  <td>{{ $mensagem->tipo }}</td>
+                  <td>
+                    @php
+                      $badgeClass = match($mensagem->tipo) {
+                        'erro' => 'bg-danger',
+                        'aviso' => 'bg-warning text-dark',
+                        'sucesso' => 'bg-success',
+                        default => 'bg-info text-dark',
+                      };
+                    @endphp
+                    <span class="badge {{ $badgeClass }}">{{ ucfirst($mensagem->tipo) }}</span>
+                  </td>
                   <td>{{ $mensagem->sistema }}</td>
                   <td>{{ $mensagem->publico ? 'Sim' : 'Não' }}</td>
                   <td>{{ $mensagem->prioridade }}</td>
                   <td>{{ $mensagem->ativo ? 'Sim' : 'Não' }}</td>
+                  <td>{{ $mensagem->inicio_exibicao?->format('d/m/Y H:i') ?? '-' }}</td>
+                  <td>{{ $mensagem->fim_exibicao?->format('d/m/Y H:i') ?? '-' }}</td>
                   <td>{{ $mensagem->updated_at?->format('d/m/Y H:i') }}</td>
                   <td class="text-end">
                     <a href="{{ route('mensagens.edit', $mensagem) }}" class="btn btn-sm btn-outline-primary">Editar</a>

@@ -59,8 +59,8 @@ Campos recomendados:
 - `prioridade`: ordem de destaque quando houver múltiplas mensagens.
 - `sistema`: sistema-alvo da mensagem (ou `geral` para todos).
 - `publico`: controle de visibilidade (binário):
-  - `false` (`Não`): exibe para todos (inclusive não logados);
-  - `true` (`Sim`): exibe somente para usuários logados.
+  - `true` (`Sim`): exibe para todos (inclusive não logados);
+  - `false` (`Não`): exibe somente para usuários logados.
 - `created_at` e `updated_at`: auditoria básica de criação e atualização.
 
 Regras implementadas:
@@ -80,30 +80,13 @@ Exemplo de payload (registro de mensagem):
   "conteudo": "O sistema ficará indisponível em 05/03/2026, das 22h às 23h30, para manutenção.",
   "tipo": "aviso",
   "ativo": true,
-  "inicio_exibicao": "2026-03-03T08:00:00-03:00",
-  "fim_exibicao": "2026-03-05T23:30:00-03:00",
+  "inicio_exibicao": "2026-03-03T11:00:00.000000Z",
+  "fim_exibicao": "2026-03-06T02:30:00.000000Z",
   "prioridade": 10,
-  "sistema": "empresta",
+  "sistema": "cadastros-auxiliares,ponto",
   "publico": true,
-  "created_at": "2026-03-02T10:15:00-03:00",
-  "updated_at": "2026-03-02T10:15:00-03:00"
+  "updated_at": "2026-03-02T13:15:00.000000Z"
 }
-```
-
-Exemplo de resposta para consumo por app:
-
-```json
-[
-  {
-    "id": 42,
-    "titulo": "Indisponibilidade programada",
-    "conteudo": "O sistema ficará indisponível em 05/03/2026, das 22h às 23h30, para manutenção.",
-    "tipo": "aviso",
-    "prioridade": 10,
-    "inicio_exibicao": "2026-03-03T08:00:00-03:00",
-    "fim_exibicao": "2026-03-05T23:30:00-03:00"
-  }
-]
 ```
 
 ### Exemplo de endpoint para consumo
@@ -118,19 +101,21 @@ Endpoints:
 
 - `GET /api/mensagens`
 - `GET /api/mensagens?limite=10`
-- `GET /api/mensagens?sistema=empresta&publico=true&ativos=true&limite=5`
+- `GET /api/mensagens?sistema=cadastros-auxiliares&publico=true&ativos=true&limite=5`
 
 Parâmetros de filtro (query string):
 
-- `sistema`: restringe mensagens por sistema (ex.: `empresta`).
+- `sistema`: restringe mensagens por sistema (ex.: `cadastros-auxiliares`).
 - `publico`: filtra por público (aceita `true/false`, `1/0`, `sim/nao`, `usuario/todos`).
+  - `true` / `sim`: mensagens públicas (todos);
+  - `false` / `nao`: mensagens apenas para usuários logados.
 - `ativos`: quando `true`, retorna apenas mensagens ativas na data/hora atual.
 - `limite`: quantidade máxima de mensagens retornadas.
 
 Exemplo de chamada:
 
 ```http
-GET /api/mensagens?sistema=empresta&publico=true&ativos=true&limite=5
+GET /api/mensagens?sistema=cadastros-auxiliares&publico=true&ativos=true&limite=5
 ```
 
 Comportamento esperado:
@@ -155,19 +140,23 @@ CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO=true
 CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL=
 CADASTROS_AUXILIARES_MENSAGENS_LIMITE=5
 CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT=5
+CADASTROS_AUXILIARES_MENSAGENS_REFRESH=30
 ```
 
 Significado:
 
 - `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO`: habilita/desabilita a integração.
+- quando a variável não existir, estiver vazia ou for `false`, a integração fica desabilitada.
 - `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`: endpoint `GET` do cadastros-auxiliares (ex.: `https://seu-app/api/mensagens`).
 - `CADASTROS_AUXILIARES_MENSAGENS_LIMITE`: quantidade máxima de mensagens consumidas.
 - `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT`: tempo em segundos para cada mensagem desaparecer automaticamente.
+- `CADASTROS_AUXILIARES_MENSAGENS_REFRESH`: intervalo (em segundos) para atualizar somente a área de mensagens sem precisar `F5`.
 
 Comportamento de exibição no tema:
 
 - `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT` define por quantos segundos cada mensagem fica visível.
-- Se `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT` estiver vazio, as mensagens não são exibidas no tema.
+- Se `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT` estiver vazio ou `0`, as mensagens ficam visíveis até o usuário clicar em fechar.
+- A área de mensagens é atualizada periodicamente sem recarregar a página, com intervalo definido por `CADASTROS_AUXILIARES_MENSAGENS_REFRESH`.
 - Cada mensagem possui botão de fechar manual (`×`).
 - Se o endpoint estiver indisponível, o comportamento é **silencioso** (sem erro na interface).
 
