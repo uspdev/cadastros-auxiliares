@@ -29,9 +29,9 @@ class ApiMensagemController extends Controller
             $publico = str_replace('á', 'a', $publico);
 
             if (in_array($publico, ['1', 'true', 'sim', 'usuario', 'usuário'], true)) {
-                $query->where('publico', true);
+                $query->whereIn('publico', ['true', '1', 1, true]);
             } elseif (in_array($publico, ['0', 'false', 'nao', 'não', 'todos'], true)) {
-                $query->where('publico', false);
+                $query->whereIn('publico', ['false', '0', 0, false]);
             }
         }
 
