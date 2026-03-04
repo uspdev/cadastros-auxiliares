@@ -5,7 +5,7 @@ namespace Tests\Browser;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class LaravelTools extends DuskTestCase
+class LaravelToolsTest extends DuskTestCase
 {
     public function testLaravelToolsNotAuth()
     {

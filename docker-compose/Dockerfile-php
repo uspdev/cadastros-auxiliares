@@ -1,7 +1,7 @@
-FROM php:7.4-fpm
+FROM php:8.3-fpm
 
 RUN apt-get update
-RUN apt-get -yqq install curl \ 
+RUN apt-get -yqq install curl \
     zip \
     unzip \
     nodejs \
@@ -9,19 +9,19 @@ RUN apt-get -yqq install curl \
     libicu-dev \
     freetds-bin \
     freetds-dev \
-    libxml2-dev 
+    libxml2-dev
 
 # Pacotes que talvez sejam necessários
-#    libicu-dev 
+#    libicu-dev
 #    libonig-dev \
 #    libpng-dev
 
 RUN cp /usr/lib/x86_64-linux-gnu/libsybdb.so.5 /usr/lib/libsybdb.so
 
-RUN docker-php-ext-install pdo_dblib \ 
+RUN docker-php-ext-install pdo_dblib \
     pdo_mysql \
-    soap 
-#    gd \ 
+    soap
+#    gd \
 #    mbstring \
 #    intl \
 #    json \
