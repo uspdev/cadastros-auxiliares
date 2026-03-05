@@ -103,6 +103,12 @@ Comportamento esperado:
 
 As mensagens podem ser exibidas no topo de **todas as páginas** da aplicação via `laravel-usp-theme`.
 
+No fluxo atual do tema:
+
+- o navegador faz polling no endpoint local do tema: `/_usp-theme/cadastros-auxiliares/mensagens`;
+- o backend do tema consulta este webservice em `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`;
+- `CADASTROS_AUXILIARES_PASSWORD` é enviada apenas no backend (não fica exposta no browser).
+
 Configuração por `.env`:
 
 - `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO=false` (default).
@@ -125,7 +131,7 @@ Significado:
 - `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO`: habilita/desabilita a integração.
 - quando a variável não existir, estiver vazia ou for `false`, a integração fica desabilitada.
 - `CADASTROS_AUXILIARES_PASSWORD`: senha opcional para proteger `/api/mensagens` em chamadas externas.
-- requisições same-origin da interface continuam funcionando sem precisar expor senha na URL.
+- em integrações com `laravel-usp-theme`, a senha é usada no backend do tema (proxy local), sem exposição no navegador.
 - `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`: endpoint `GET` do cadastros-auxiliares (ex.: `https://seu-app/api/mensagens`).
 - `CADASTROS_AUXILIARES_SISTEMA_NAME`: nome do sistema consumidor para aplicar o filtro por sistema (ex.: `cadastros-auxiliares`, `ponto`).
 - `CADASTROS_AUXILIARES_MENSAGENS_LIMITE`: quantidade máxima de mensagens consumidas.
