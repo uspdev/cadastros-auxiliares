@@ -63,7 +63,7 @@ Observação de operação:
 - O cadastro (criação, edição e exclusão) de mensagens é feito somente pela interface web em `/mensagens`.
 - O CRUD web de mensagens é restrito a usuários com perfil/permissão `admin`.
 - A API de mensagens é somente leitura e disponibiliza apenas endpoints `GET`.
-- Opcionalmente, você pode proteger o endpoint com uma senha compartilhada (`CADASTROS_AUXILIARES_PASSWORD`).
+- O endpoint deve ser protegido com uma senha compartilhada (`CADASTROS_AUXILIARES_PASSWORD`).
 
 Endpoints:
 
@@ -130,7 +130,7 @@ Significado:
 
 - `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO`: habilita/desabilita a integração.
 - quando a variável não existir, estiver vazia ou for `false`, a integração fica desabilitada.
-- `CADASTROS_AUXILIARES_PASSWORD`: senha opcional para proteger `/api/mensagens` em chamadas externas.
+- `CADASTROS_AUXILIARES_PASSWORD`: senha obrigatória para proteger `/api/mensagens` em chamadas externas.
 - em integrações com `laravel-usp-theme`, a senha é usada no backend do tema (proxy local), sem exposição no navegador.
 - `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`: endpoint `GET` do cadastros-auxiliares (ex.: `https://seu-app/api/mensagens`).
 - `CADASTROS_AUXILIARES_SISTEMA_NAME`: nome do sistema consumidor para aplicar o filtro por sistema (ex.: `cadastros-auxiliares`, `ponto`).

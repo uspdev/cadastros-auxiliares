@@ -39,6 +39,7 @@ Centralizar dados auxiliares usados por sistemas locais, permitindo:
 - **Mensagens (sistemas locais)**
   - **Mensagens institucionais e operacionais exibidas nos sistemas locais**.
   - Em integrações com `laravel-usp-theme`, o consumo é feito via proxy local do tema (`/_usp-theme/cadastros-auxiliares/mensagens`), mantendo a senha no backend.
+  - Consumo via pacote `uspdev/cadastros-auxiliares-client` nos sistemas locais.
   - Documentação completa: [docs/mensagens.md](docs/mensagens.md).
 
 ## Pontos a evoluir

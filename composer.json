@@ -21,9 +21,10 @@
         "laravel/sanctum": "^4.3",
         "laravel/tinker": "^2.11",
         "spatie/commonmark-highlighter": "^3.0",
+        "uspdev/cadastros-auxiliares-client": "^1.0",
         "uspdev/laravel-replicado": "^1.0",
         "uspdev/laravel-tools": "^1.5",
-        "uspdev/laravel-usp-theme": "^2.8",
+        "uspdev/laravel-usp-theme": "^2.8.23",
         "uspdev/senhaunica-socialite": "^4.5"
     },
     "require-dev": {
@@ -78,6 +79,5 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }
