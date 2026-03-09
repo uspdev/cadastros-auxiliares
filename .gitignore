@@ -21,3 +21,6 @@ public/vendor
 Dockerfile.custom
 
 /.ddev
+
+ai-context.md
+ai-safety.md
