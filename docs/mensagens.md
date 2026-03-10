@@ -106,20 +106,20 @@ As mensagens podem ser exibidas no topo de **todas as páginas** da aplicação 
 No fluxo atual do tema:
 
 - o navegador faz polling no endpoint local do tema: `/_usp-theme/cadastros-auxiliares/mensagens`;
-- o backend do tema consulta este webservice em `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`;
+- o backend do tema consulta este webservice no endpoint derivado de `CADASTROS_AUXILIARES_URL` (`/api/mensagens`);
 - `CADASTROS_AUXILIARES_PASSWORD` é enviada apenas no backend (não fica exposta no browser).
 
 Configuração por `.env`:
 
 - `CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO=false` (default).
-- Quando `true`, usa `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL` para buscar mensagens.
+- Quando `true`, usa o endpoint derivado de `CADASTROS_AUXILIARES_URL` para buscar mensagens.
 
 Exemplo para testes usando o próprio app:
 
 ```dotenv
 CADASTROS_AUXILIARES_MENSAGENS_INTEGRACAO=true
+CADASTROS_AUXILIARES_URL=https://seu-app
 CADASTROS_AUXILIARES_PASSWORD=password
-CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL=https://seu-app/api/mensagens
 CADASTROS_AUXILIARES_SISTEMA_NAME=cadastros-auxiliares
 CADASTROS_AUXILIARES_MENSAGENS_LIMITE=5
 CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT=5
@@ -132,7 +132,7 @@ Significado:
 - quando a variável não existir, estiver vazia ou for `false`, a integração fica desabilitada.
 - `CADASTROS_AUXILIARES_PASSWORD`: senha obrigatória para proteger `/api/mensagens` em chamadas externas.
 - em integrações com `laravel-usp-theme`, a senha é usada no backend do tema (proxy local), sem exposição no navegador.
-- `CADASTROS_AUXILIARES_MENSAGENS_ENDPOINT_URL`: endpoint `GET` do cadastros-auxiliares (ex.: `https://seu-app/api/mensagens`).
+- `CADASTROS_AUXILIARES_URL`: URL base do serviço (ex.: `https://seu-app`).
 - `CADASTROS_AUXILIARES_SISTEMA_NAME`: nome do sistema consumidor para aplicar o filtro por sistema (ex.: `cadastros-auxiliares`, `ponto`).
 - `CADASTROS_AUXILIARES_MENSAGENS_LIMITE`: quantidade máxima de mensagens consumidas.
 - `CADASTROS_AUXILIARES_MENSAGENS_TIMEOUT`: tempo em segundos para cada mensagem desaparecer automaticamente.

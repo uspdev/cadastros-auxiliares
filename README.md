@@ -32,6 +32,7 @@ Centralizar dados auxiliares usados por sistemas locais, permitindo:
   - **Programas**
     - Motivo: o replicado não traz sigla e outras informações de rotatividade utilizadas pelos programas.
     - Documentação dos endpoints: [docs/programas.md](docs/programas.md).
+    - Consumo recomendado nos sistemas locais via `uspdev/cadastros-auxiliares-client` (base `CADASTROS_AUXILIARES_URL`).
 
 - **Gerais**
   - **Feriados**
@@ -40,8 +41,19 @@ Centralizar dados auxiliares usados por sistemas locais, permitindo:
 - **Mensagens (sistemas locais)**
   - **Mensagens institucionais e operacionais exibidas nos sistemas locais**.
   - Em integrações com `laravel-usp-theme`, o consumo é feito via proxy local do tema (`/_usp-theme/cadastros-auxiliares/mensagens`), mantendo a senha no backend.
-  - Consumo via pacote `uspdev/cadastros-auxiliares-client` nos sistemas locais.
+  - Consumo via pacote `uspdev/cadastros-auxiliares-client` nos sistemas locais (base `CADASTROS_AUXILIARES_URL`).
   - Documentação completa: [docs/mensagens.md](docs/mensagens.md).
+
+## Endpoints disponíveis
+
+- `GET /api/mensagens`
+- `GET /api/pos/programas`
+- `GET /api/pos/programas/{codcur}`
+
+Documentação detalhada:
+
+- mensagens: [docs/mensagens.md](docs/mensagens.md)
+- programas: [docs/programas.md](docs/programas.md)
 
 ## Seeder de programas de pós-graduação
 
