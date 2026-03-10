@@ -7,6 +7,11 @@ $menu = [
         'can' => 'admin',
     ],
     [
+        'text' => '<i class="fas fa-graduation-cap"></i> Programas',
+        'url' => 'programas',
+        'can' => 'admin',
+    ],
+    [
         'text' => '<i class="fas fa-question-circle"></i> Ajuda',
         'url' => 'https://github.com/uspdev/cadastros-auxiliares?tab=readme-ov-file#cadastros-auxiliares',
         'target' => '_blank',

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MensagemController;
+use App\Http\Controllers\ProgramaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,10 @@ Route::get('/', function () {
 Route::resource('mensagens', MensagemController::class)
     ->except(['show'])
     ->parameters(['mensagens' => 'mensagem'])
+    ->middleware(['auth', 'can:admin']);
+
+Route::resource('programas', ProgramaController::class)
+    ->parameters(['programas' => 'programa'])
     ->middleware(['auth', 'can:admin']);
 
 // Permite usar Gate::check('user')na view 404
