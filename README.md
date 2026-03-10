@@ -31,6 +31,7 @@ Centralizar dados auxiliares usados por sistemas locais, permitindo:
 - **Pós-Graduação**
   - **Programas**
     - Motivo: o replicado não traz sigla e outras informações de rotatividade utilizadas pelos programas.
+    - Documentação dos endpoints: [docs/programas.md](docs/programas.md).
 
 - **Gerais**
   - **Feriados**
@@ -41,6 +42,22 @@ Centralizar dados auxiliares usados por sistemas locais, permitindo:
   - Em integrações com `laravel-usp-theme`, o consumo é feito via proxy local do tema (`/_usp-theme/cadastros-auxiliares/mensagens`), mantendo a senha no backend.
   - Consumo via pacote `uspdev/cadastros-auxiliares-client` nos sistemas locais.
   - Documentação completa: [docs/mensagens.md](docs/mensagens.md).
+
+## Seeder de programas de pós-graduação
+
+Para pré-popular a tabela local `programas` com os dados do replicado (`Posgraduacao::listarProgramas()`), execute:
+
+```bash
+php artisan migrate
+php artisan db:seed --class=ProgramaSeeder
+```
+
+Comportamento do seeder:
+
+- cria registros novos com `codcur` e `codslg`;
+- define `codslg` inicial no formato `PPG-<codcur>`;
+- não duplica dados em reexecuções (`firstOrCreate`);
+- não sobrescreve `codslg` já ajustado manualmente.
 
 ## Pontos a evoluir
 
